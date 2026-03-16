@@ -76,9 +76,9 @@ export default function Home() {
             <div className="bg-[#06090f] border border-[#1a2a3a] rounded-sm px-3.5 py-3 text-[12px] text-[#00ff99] min-h-[56px]">
               <span className="text-[#4a6a7a] mr-1.5">&gt;&gt;&gt;</span>
               classification info:{" "}
-              <span className="text-[#00e5ff]">[benign]</span>
+              <span className="text-[#00e5ff]">[cancer]</span>
               /
-              <span className="text-[#00e5ff]">[non-benign]</span>
+              <span className="text-[#00e5ff]">[non-cancer]</span>
             </div>
           </div>
         </div>
