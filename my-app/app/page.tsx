@@ -1,12 +1,33 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 export default function Home() {
-  const [video, setVideo] = useState<string | null>(null);
+  const [video, setVideo] = useState<File | null>(null);
+  const [videoURL, setVideoURL] = useState<string | null>(null); 
+
+  useEffect(() => {
+    async function run() {
+      const res = await handleClick(video);
+      if (res) console.log(res.result.result);
+    }
+
+    run();
+  }, [video])
   
-  function handleClick() {
-    console.log("yui");
+  async function handleClick(file: File | null) {
+    if (!file) return "The input file is null";
+
+    const formData = new FormData();
+    formData.append("video", file);
+
+    const result = await fetch('/api/process-video', {
+      method: "POST",
+      body: formData,
+    });
+
+    return result.json();
   }
+  
   return (
     <main className="min-h-screen bg-[#0a0e14] font-mono text-[#c8d8e8]">
 
@@ -31,7 +52,7 @@ export default function Home() {
               {/* Raw Input */}
               <div className="flex flex-col gap-1.5">
                 <div className="w-full aspect-[4/3] bg-[#06090f] border border-[#1a2a3a] rounded-sm relative overflow-hidden">
-                  {video && <video src={video} controls className="w-full h-full object-contain" />}
+                  {videoURL && <video src={videoURL} controls className="w-full h-full object-contain" />}
                 </div>
                 <span className="text-[10px] tracking-wide text-[#ff2d78]">Raw Input</span>
 
@@ -42,7 +63,10 @@ export default function Home() {
                   className="hidden"
                   onChange={(e) => {
                     const file = e.target.files?.[0];
-                    if (file) setVideo(URL.createObjectURL(file));
+                    if (file) {
+                      setVideo(file);
+                      setVideoURL(URL.createObjectURL(file));
+                    }
                   }}
                 />
                 <button
