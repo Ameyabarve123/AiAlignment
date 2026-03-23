@@ -17,5 +17,5 @@ async def process_video(video: UploadFile = File(...)):
     os.unlink(tmp_path)
 
 def run_your_model(video_path: str):
-  # Your AI model logic here
+  # AI model logic here
   return {"label": "example", "confidence": 0.95}
