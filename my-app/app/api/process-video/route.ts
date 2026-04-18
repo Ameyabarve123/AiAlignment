@@ -8,12 +8,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  const result = await fetch('http://127.0.0.1:8000/process', {
+  const forwardForm = new FormData();
+  forwardForm.append("video", file, file.name);
+
+  const result = await fetch("http://127.0.0.1:8000/process", {
     method: "POST",
-    body: formData,
+    body: forwardForm,
   });
 
   const data = await result.json();
-
-  return NextResponse.json({ result: data });
+  return NextResponse.json(data);
 }
