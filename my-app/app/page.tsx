@@ -97,8 +97,6 @@ export default function Home() {
       return res.json();
     })
     .then(data => {
-      console.log("Backend response:", data); // ← add this temporarily
-      // Handle both { result: ... } and bare response shapes
       const inferenceResult = data.result ?? data;
       if (!inferenceResult?.frames) throw new Error(`Unexpected response shape: ${JSON.stringify(data)}`);
       setResult(inferenceResult);
