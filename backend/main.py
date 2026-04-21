@@ -21,7 +21,7 @@ app.add_middleware(
 
 CHECKPOINT_PATH = "segformer_best.pt"
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-NUM_CLASSES = 14
+NUM_CLASSES = 13
 IMAGE_SIZE = 512
 
 CLASS_COLORS = {
